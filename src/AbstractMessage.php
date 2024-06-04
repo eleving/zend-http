@@ -43,11 +43,11 @@ abstract class AbstractMessage extends Message
      */
     public function setVersion($version)
     {
-        if ($version != self::VERSION_10 && $version != self::VERSION_11) {
-            throw new Exception\InvalidArgumentException(
-                'Not valid or not supported HTTP version: ' . $version
-            );
+
+        if (! preg_match('|^\d\. \d$|', $version)) {
+            throw new Exception\InvalidArgumentException("Invalid HTTP response version: $version");
         }
+
         $this->version = $version;
         return $this;
     }
